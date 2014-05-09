@@ -1,4 +1,11 @@
 out/
 *.iml
 .idea/
-
+target/
+lib_managed/
+.cache
+.settings/
+.project
+.classpath
+.metadata/
+RemoteSystemsTempFiles/
