@@ -1,8 +1,10 @@
 package recfun
 import common._
+import scala.annotation.tailrec
 
 object Main {
   def main(args: Array[String]) {
+    testBalance()
     testCountChanges()
   }
 
@@ -23,6 +25,7 @@ object Main {
     test("I told him (that it’s not (yet) done). (But he wasn’t listening)")
     test(":-)")
     test("())(")
+    test("()(")
   }
 
   def testCountChanges() {
@@ -45,8 +48,9 @@ object Main {
    * Exercise 2
    */
   def balance(chars: List[Char]): Boolean = {
+    @tailrec
     def loop(nb: Int, chars: List[Char]): Boolean = {
-      if (chars.isEmpty) true
+      if (chars.isEmpty) nb == 0
       else {
         val first = chars.head
         val inc =
