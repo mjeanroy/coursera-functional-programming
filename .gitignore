@@ -8,4 +8,6 @@ lib_managed/
 .project
 .classpath
 .metadata/
+.worksheet/
+bin/
 RemoteSystemsTempFiles/
