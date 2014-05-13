@@ -64,11 +64,23 @@ class TweetSetSuite extends FunSuite {
     }
   }
 
-  ignore("descending: set5") {
+  test("descending: set5") {
     new TestSets {
       val trends = set5.descendingByRetweet
       assert(!trends.isEmpty)
       assert(trends.head.user == "a" || trends.head.user == "b")
     }
+  }
+
+  test("google tweets") {
+    assert(!GoogleVsApple.googleTweets.isEmpty, "Google tweets should not be empty")
+  }
+
+  test("apple tweets") {
+    assert(!GoogleVsApple.appleTweets.isEmpty, "Apple tweets should not be empty")
+  }
+
+  test("trendings tweets") {
+    assert(!GoogleVsApple.trending.isEmpty, "Trending tweets should not be empty")
   }
 }

@@ -148,7 +148,14 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
     else rightFilter
   }
 
-  def mostRetweeted = ???
+  def mostRetweeted = {
+    def compare(t1: Tweet, t2: Tweet): Tweet = if (t1.retweets > t2.retweets) t1 else t2
+
+    if (left.isEmpty && right.isEmpty) elem
+    else if (left.isEmpty) compare(elem, right.mostRetweeted)
+    else if (right.isEmpty) compare(elem, left.mostRetweeted)
+    else compare(elem, compare(right.mostRetweeted, left.mostRetweeted))
+  }
 
   /**
    * The following methods are already implemented
@@ -202,14 +209,17 @@ object GoogleVsApple {
   val google = List("android", "Android", "galaxy", "Galaxy", "nexus", "Nexus")
   val apple = List("ios", "iOS", "iphone", "iPhone", "ipad", "iPad")
 
-  lazy val googleTweets: TweetSet = ???
-  lazy val appleTweets: TweetSet = ???
+  def filter(lst: List[String], tweet: Tweet) = lst.exists(txt => tweet.text.contains(txt))
+
+  lazy val googleTweets: TweetSet = TweetReader.allTweets.filter(tweet => filter(google, tweet))
+
+  lazy val appleTweets: TweetSet = TweetReader.allTweets.filter(tweet => filter(apple, tweet))
 
   /**
    * A list of all tweets mentioning a keyword from either apple or google,
    * sorted by the number of retweets.
    */
-  lazy val trending: TweetList = ???
+  lazy val trending: TweetList = (googleTweets union appleTweets).descendingByRetweet
 }
 
 object Main extends App {
